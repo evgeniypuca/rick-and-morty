@@ -37,9 +37,6 @@ body {
   background-color: #202329;
 }
 
-#Layer_1 {
-  margin-bottom: 50px;
-}
 
 .App {
   margin: 0 auto;
@@ -51,6 +48,7 @@ body {
   align-items: center;
 
   .characters {
+    margin-top: 50px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -88,11 +86,25 @@ body {
       }
     }
   }
-
-  .next_page {
-    margin-top: 40px;
-    width: 200px;
+  .pagination{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    .btn {
+      padding: 5px 20px;
+      margin: 10px;
+      border-radius: 5px;
+      background-color:#69c8ec;
+      font-size: larger;
+      @media all and (hover:hover){
+        &:hover {
+          background-color: #029cf5;
+        }
+    }
   }
+
+  }
+
 
   .to-top {
     position: fixed;
@@ -137,18 +149,26 @@ body {
       padding: 20px 10px 10px 0;
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      flex-direction: column;
+      justify-content: space-between;
       overflow: hidden;
       @media all and (max-width:580px) {
         padding:  10px ;
       }
 
     }
+    
+    .btn-close{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
     .close {
       font-size: 24px;
       cursor: pointer;
-      background-color: rgba(9, 133, 140, 0.958);
+      background-color: #72b8e8;
+      color: rgb(50, 38, 21);
       border: 0;
       border-radius: 10px;
       padding: 5px 40px;
@@ -156,6 +176,11 @@ body {
       justify-content: center;
       align-items: center;
       flex-grow: 1;
+      @media all and (hover:hover){
+        &:hover {
+          background-color: #029cf5;
+        }
+    }
     }
   }
 

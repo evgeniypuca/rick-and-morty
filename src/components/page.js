@@ -5,35 +5,57 @@ import { Preloader } from './preloader'
 import { ToTop } from './toTop'
 import { Modal } from './modal'
 import { Characters } from './characters'
-const API_URL = 'https://rickandmortyapi.com/api/character/?page=$'
+import { Switch } from './buttons/switch'
+import { Pagination } from './buttons/pagination';
 
 export function Page() {
-    const [charactersList, setCharactersList] = useState([]);
+    const [characters, setCharacters] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [error, setError] = useState('')
+    const [isPagination, setIsPagination] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
     const [selectedCharacter, setSelectedCharacter] = useState(null);
+
+  
 
     useEffect(() => {
         const fetchCharacters = async () => {
             try {
-                const response = await fetch(API_URL + currentPage);
+                const response = await fetch(
+                    `https://rickandmortyapi.com/api/character/?page=${currentPage}`
+                );
                 const data = await response.json();
-                setCharactersList((prevCharacters) => {
-                    if (currentPage === 1) {
-                        return data.results;
-                    } else {
-                        return [...prevCharacters, ...data.results];
+                console.log(data.info.pages);
+                console.log(currentPage);        
+                if (isPagination) {
+                    setCharacters(() => data.results);
+                } else  {
+                    
+                    setCharacters((prevCharacters) => {
+                        if (currentPage === 1) {
+                            return data.results;
+                        } else {
+                            return [...prevCharacters, ...data.results];
+                        }
                     }
-                });
+                    )
+                } 
             } catch (error) {
                 setError(error.message)
             }
             setIsLoading(false)
         };
-
         fetchCharacters();
-    }, [currentPage]);
+    }, [currentPage, isPagination]);
+
+    const nextPage = () => {
+        setCurrentPage((page) => page + 1);
+    };
+
+    const prevPage = () => {
+        setCurrentPage((page) => page - 1);
+    };
+
 
     const handleCardClick = (character) => {
         setSelectedCharacter(character);
@@ -53,9 +75,9 @@ export function Page() {
     const handleScroll = () => {
         const isAtBottom =
             window.innerHeight + window.scrollY >= document.body.offsetHeight;
-
-        if (isAtBottom) {
-            setCurrentPage((prev) => prev + 1);
+        console.log(isPagination);
+        if (isAtBottom && !isPagination) {
+            nextPage();
         }
     };
 
@@ -67,18 +89,27 @@ export function Page() {
         };
     }, []);
 
-    
+    const handlePagination = () => {
+        setIsPagination(!isPagination);
+    };
+
+
     if (error) {
         return <h1>Error: {error}</h1>
     }
 
+
+
     return (
         <>
             <RickAndMortyIcon />
+            <Switch func={handlePagination} />
+            {isPagination && <Pagination funcNext={nextPage} funcPrev={prevPage} />}
+
             {isLoading ? (
                 <Preloader src={spinner} alt="spinner" />
-            ) : <Characters data={charactersList} func={handleCardClick} />}
-
+            ) : <Characters data={characters} func={handleCardClick} />}
+            {isPagination && <Pagination funcNext={nextPage} funcPrev={prevPage} />}
             {selectedCharacter && <Modal data={selectedCharacter} func={closeModal} />}
 
             {currentPage > 1 && <ToTop func={scrollToTop} />}

@@ -34,9 +34,12 @@ export function Modal({ func, data }) {
                             </p>
                         </div>
                     </div>
-                    <button className="close" onClick={func}>
-                        Close
-                    </button>
+                    <div className="btn-close">
+                        <button className="close" onClick={func}>
+                            Close
+                        </button>
+                    </div>
+
                 </div>
 
             </div>
