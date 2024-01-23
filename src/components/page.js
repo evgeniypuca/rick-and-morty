@@ -16,7 +16,6 @@ export function Page() {
     const [isLoading, setIsLoading] = useState(true)
     const [selectedCharacter, setSelectedCharacter] = useState(null);
 
-  
 
     useEffect(() => {
         const fetchCharacters = async () => {
@@ -25,12 +24,11 @@ export function Page() {
                     `https://rickandmortyapi.com/api/character/?page=${currentPage}`
                 );
                 const data = await response.json();
-                console.log(data.info.pages);
-                console.log(currentPage);        
+
                 if (isPagination) {
                     setCharacters(() => data.results);
-                } else  {
-                    
+                } else {
+
                     setCharacters((prevCharacters) => {
                         if (currentPage === 1) {
                             return data.results;
@@ -39,7 +37,7 @@ export function Page() {
                         }
                     }
                     )
-                } 
+                }
             } catch (error) {
                 setError(error.message)
             }
@@ -53,7 +51,10 @@ export function Page() {
     };
 
     const prevPage = () => {
-        setCurrentPage((page) => page - 1);
+        if (currentPage > 1) {
+            setCurrentPage((page) => page - 1);
+        }
+
     };
 
 
@@ -72,33 +73,29 @@ export function Page() {
         });
     };
 
-    const handleScroll = () => {
-        const isAtBottom =
-            window.innerHeight + window.scrollY >= document.body.offsetHeight;
-        console.log(isPagination);
-        if (isAtBottom) {
-            nextPage();
-        }
-    };
+;
 
     useEffect(() => {
+    const handleScroll = () => {
+            const isAtBottom =
+                window.innerHeight + window.scrollY >= document.body.offsetHeight;
+            if (isAtBottom && !isPagination) {
+                nextPage();
+        }
+    }
         window.addEventListener("scroll", handleScroll);
-
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
-    }, []);
+    }, [isPagination]);
 
     const handlePagination = () => {
         setIsPagination(!isPagination);
     };
 
-
     if (error) {
         return <h1>Error: {error}</h1>
     }
-
-
 
     return (
         <>
