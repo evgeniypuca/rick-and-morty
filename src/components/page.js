@@ -76,7 +76,7 @@ export function Page() {
         const isAtBottom =
             window.innerHeight + window.scrollY >= document.body.offsetHeight;
         console.log(isPagination);
-        if (isAtBottom && !isPagination) {
+        if (isAtBottom) {
             nextPage();
         }
     };
