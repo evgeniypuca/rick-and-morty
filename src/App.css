@@ -1,0 +1,191 @@
+@keyframes heartbeat {
+  from {
+    transform: scale(1);
+    transform-origin: center center;
+    animation-timing-function: ease-out;
+  }
+  15% {
+    transform: scale(0.81);
+    animation-timing-function: ease-in;
+  }
+  27% {
+    transform: scale(0.95);
+    animation-timing-function: ease-out;
+  }
+  43% {
+    transform: scale(0.77);
+    animation-timing-function: ease-in;
+  }
+  55% {
+    transform: scale(1);
+    animation-timing-function: ease-out;
+  }
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  background-color: #202329;
+}
+
+#Layer_1 {
+  margin-bottom: 50px;
+}
+
+.App {
+  margin: 0 auto;
+  padding: 40px 10px;
+  max-width: 1230px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.App .characters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 60px;
+  column-gap: 10px;
+}
+.App .characters div {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 270px;
+  background-color: white;
+  border-radius: 20px;
+}
+.App .characters div img {
+  width: 240px;
+  height: 240px;
+  position: relative;
+  top: -20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 15px gray;
+  transition: 0.3s ease;
+}
+@media all and (hover: hover) {
+  .App .characters div img:hover {
+    transform: scale(1.15);
+  }
+}
+.App .characters div p {
+  margin: 0 0 20px 0;
+  font-weight: bold;
+  font-size: large;
+}
+.App .next_page {
+  margin-top: 40px;
+  width: 200px;
+}
+.App .to-top {
+  position: fixed;
+  width: 70px;
+  height: 70px;
+  font-weight: 600;
+  bottom: 50px;
+  right: 50px;
+  border-radius: 50%;
+  border: 0;
+  background-color: #72b8e8;
+  box-shadow: 0px 0px 20px 0px #4cff8f;
+  animation: heartbeat 2s ease-in-out infinite both;
+}
+
+.modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
+.modal .modal-content {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 15px;
+  text-align: center;
+  overflow: hidden;
+}
+@media all and (max-width: 580px) {
+  .modal .modal-content {
+    flex-direction: column;
+  }
+}
+.modal .modal-content .right {
+  padding: 20px 10px 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  overflow: hidden;
+}
+@media all and (max-width: 580px) {
+  .modal .modal-content .right {
+    padding: 10px;
+  }
+}
+.modal .modal-content .close {
+  font-size: 24px;
+  cursor: pointer;
+  background-color: rgba(9, 133, 140, 0.958);
+  border: 0;
+  border-radius: 10px;
+  padding: 5px 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+.modal img {
+  margin-right: 20px;
+  position: relative;
+}
+@media all and (max-width: 580px) {
+  .modal img {
+    margin-right: 0px;
+  }
+}
+.modal img::after {
+  content: "";
+  display: block;
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 50%);
+  z-index: 100;
+}
+.modal .info {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+}
+.modal .info div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.modal .info div p {
+  text-align: left;
+  margin: 5px;
+}
+.modal .info div p span {
+  display: block;
+  font-weight: bold;
+}/*# sourceMappingURL=App.css.map */
